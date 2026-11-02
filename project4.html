@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 4 — LB(N) and Shannon — IT by Viktoriabel</title>
+    <!-- Подключаем MathJax для красивых формул -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292f;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 15px;
+        }
+        .nav h1 { font-size: 1.2em; margin: 0; }
+        .nav-links a { margin-left: 15px; text-decoration: none; color: #0969da; }
+        .nav-links a:hover { text-decoration: underline; }
+
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h2 { margin: 0 0 5px 0; font-size: 2em; }
+        .header p { margin: 0; color: #57606a; font-size: 0.9em; }
+
+        /* Общие стили для карточек */
+        .card {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+        }
+
+        .card h3 { margin-top: 0; font-size: 1.3em; }
+        .formula-text { font-size: 1.2em; margin: 10px 0 20px 0; font-style: italic; }
+        .sub-text { font-size: 0.85em; color: #57606a; margin-bottom: 20px; }
+
+        /* Стили для ввода */
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 80px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .btn-calc {
+            background-color: #0969da;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-calc:hover { background-color: #0860ca; }
+        
+        .result-display {
+            margin-top: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #0969da;
+            min-height: 30px;
+        }
+
+        /* Стили для Энтропии Шеннона */
+        .prob-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .prob-inputs input {
+            width: 50px;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        /* Фото-сетка (Знаменитости) */
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 30px;
+            border-top: 1px solid #d0d7de;
+            padding-top: 20px;
+        }
+        .person {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8em;
+        }
+        .person img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 5px;
+            background-color: #eaeef2; /* Заглушка, если картинка не загрузится */
+        }
+        .person span { font-weight: bold; margin-bottom: 2px; text-align: center; }
+        .person .percent { color: #57606a; }
+
+        /* Главное фото */
+        .main-image {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 20px auto;
+            display: block;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <h1>IT by Viktoriabel</h1>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="project4.html">Project 4</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h2>Project 4</h2>
+        <p>LB(N) and Shannon entropy</p>
+    </div>
+
+    <!-- Блок 1: Бинарный алгоритм -->
+    <div class="card">
+        <h3>Binary algorithm</h3>
+        <div class="formula-text">H = K &middot; LB(N)</div>
+        <div class="sub-text">LB(N) is the base-2 logarithm of the number of symbol sequences.</div>
+        
+        <div class="input-group">
+            <span>LB(</span>
+            <input type="number" id="lbInput" placeholder="N" min="1">
+            <span>) =</span>
+            <button class="btn-calc" onclick="calculateLB()">=</button>
+        </div>
+        <div class="result-display" id="lbResult"></div>
+    </div>
+
+    <!-- Блок 2: Энтропия Шеннона -->
+    <div class="card">
+        <h3>Shannon entropy</h3>
+        
+        <!-- Формула Шеннона через MathJax -->
+        <div style="font-size: 1.5em; margin: 20px 0;">
+            \[ S(x) = \sum_{i=1}^{n} p(i) \log_2 \frac{1}{p(i)} \]
+        </div>
+
+        <div class="prob-inputs">
+            <input type="number" class="prob-input" value="50" min="0" max="100" step="any">
+            <input type="number" class="prob-input" value="25" min="0" max="100" step="any">
+            <input type="number" class="prob-input" value="12.5" min="0" max="100" step="any">
+            <input type="number" class="prob-input" value="12.5" min="0" max="100" step="any">
+        </div>
+        
+        <button class="btn-calc" onclick="calculateShannon()">50 %</button>
+        <div class="result-display" id="shannonResult"></div>
+
+        <!-- Визуальная часть (Мем с Цукербергом и формулой) -->
+        <div style="margin-top: 30px;">
+                        <!-- Ваша фотография с наложенным текстом -->
+            <div style="
+                position: relative; 
+                width: 100%; 
+                height: 250px; 
+                border-radius: 6px; 
+                overflow: hidden;
+                background-color: #0d47a1; /* Цвет фона, если фото не загрузится */
+            ">
+                <!-- Сама картинка (замените my-photo.jpg на имя вашего файла) -->
+                <img src="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\4.png" alt="My Photo" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                
+                <!-- Затемнение, чтобы текст было лучше видно -->
+                <div style="
+                    position: absolute; 
+                    top: 0; left: 0; width: 100%; height: 100%; 
+                    background: linear-gradient(to right, rgba(13, 71, 161, 0.8), rgba(46, 125, 50, 0.5));
+                "></div>
+
+                <!-- Текст поверх фото -->
+                <div style="
+                    position: absolute; 
+                    top: 0; left: 0; width: 100%; height: 100%; 
+                    display: flex; justify-content: space-between; align-items: center; 
+                    padding: 0 20px; box-sizing: border-box; color: white;
+                ">
+                    <div style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 0.9em; font-weight: bold; opacity: 0.9; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+                        H(X) = -Σ p(x) log₂ p(x)
+                    </div>
+                    
+                    <div style="font-size: 1.8em; font-weight: bold; text-align: right; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);">
+                        PROJECT 4<br>Shannon Entropy
+                    </div>
+                </div>
+            </div>
+
+            <!-- Сетка со знаменитостями -->
+            <div class="images-grid">
+                <div class="person">
+                    <img src="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\4_1.webp" alt="Mark">
+                    <span>Mark<br>Zuckerberg</span>
+                    <span class="percent">50%</span>
+                </div>
+                <div class="person">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Sergey_Brin_2008_cropped.jpg/200px-Sergey_Brin_2008_cropped.jpg" alt="Sergey">
+                    <span>Sergey<br>Brin</span>
+                    <span class="percent">25%</span>
+                </div>
+                <div class="person">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Steve_Wozniak_by_Gage_Skidmore_3_%28cropped%29.jpg/200px-Steve_Wozniak_by_Gage_Skidmore_3_%28cropped%29.jpg" alt="Steve">
+                    <span>Stefan<br>Wozniak</span>
+                    <span class="percent">12.5%</span>
+                </div>
+                <div class="person">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/SteveJobs_Macworld2005.jpg/200px-SteveJobs_Macworld2005.jpg" alt="Steve Jobs">
+                    <span>Prince Al<br>Steve</span>
+                    <span class="percent">12.5%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="../index.html" class="btn-calc" style="background-color: #f6f8fa; color: #24292f; border: 1px solid #d0d7de; text-decoration: none; margin-top: 10px;">Back to Home</a>
+
+    <script>
+        // --- Логика для бинарного алгоритма (LB) ---
+        function calculateLB() {
+            const n = parseFloat(document.getElementById('lbInput').value);
+            const resultEl = document.getElementById('lbResult');
+
+            if (isNaN(n) || n <= 0) {
+                resultEl.textContent = "Please enter N > 0";
+                return;
+            }
+
+            // Вычисляем логарифм по основанию 2
+            const lb = Math.log2(n);
+            // Округляем до 3 знаков после запятой для красоты
+            resultEl.textContent = lb.toFixed(3);
+        }
+
+        // --- Логика для Энтропии Шеннона ---
+        function calculateShannon() {
+            const inputs = document.querySelectorAll('.prob-input');
+            const resultEl = document.getElementById('shannonResult');
+            
+            let probabilities = [];
+            let sum = 0;
+
+            // Собираем значения и переводим проценты в доли (например, 50 -> 0.5)
+            inputs.forEach(input => {
+                let val = parseFloat(input.value);
+                if (isNaN(val) || val < 0) val = 0;
+                // Если ввели больше 100, ставим 100
+                if (val > 100) val = 100; 
+                
+                probabilities.push(val / 100);
+                sum += (val / 100);
+            });
+
+            // Если сумма вероятностей не равна 1 (100%), энтропия не считается
+            if (Math.abs(sum - 1) > 0.01) {
+                resultEl.textContent = "Sum of probabilities must be 100%";
+                return;
+            }
+
+            let entropy = 0;
+
+            // Формула Шеннона: S = - Σ (p * log2(p))
+            probabilities.forEach(p => {
+                if (p > 0) {
+                    entropy -= p * Math.log2(p);
+                }
+            });
+
+            // Округляем результат
+            resultEl.textContent = entropy.toFixed(3) + " bits";
+        }
+    </script>
+
+</body>
+</html>

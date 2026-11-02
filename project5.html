@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 5 — WOW/BOW Generator — IT by Viktoriabel</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292f;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 15px;
+        }
+        .nav h1 { font-size: 1.2em; margin: 0; }
+        .nav-links a { margin-left: 15px; text-decoration: none; color: #0969da; }
+        .nav-links a:hover { text-decoration: underline; }
+
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h2 { margin: 0 0 5px 0; font-size: 2em; }
+        .header p { margin: 0; color: #57606a; font-size: 0.9em; }
+
+        .card {
+            background: white;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+        }
+
+        /* Визуальная часть (Картинки) */
+        .visuals {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .img-box {
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 10px;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+        }
+
+        /* Стили для правого блока с буквами и красной линией */
+        .matrix-box {
+            position: relative;
+            font-size: 3em;
+            font-weight: 900;
+            line-height: 1.1;
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .matrix-box .crossed {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Рисуем красную линию поверх букв (зачеркивание) */
+        .matrix-box .crossed::after {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            width: 110%;
+            height: 2px;
+            background-color: red;
+            transform: rotate(-45deg);
+            transform-origin: center;
+        }
+
+        /* Настройки вероятностей */
+        .settings-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.95em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .settings-row input {
+            width: 50px;
+            padding: 4px;
+            border: 1px solid #d0d7de;
+            border-radius: 4px;
+            text-align: right;
+            font-size: 0.9em;
+        }
+
+        /* Статистика */
+        .stats-box {
+            font-size: 0.9em;
+            color: #57606a;
+            margin-bottom: 20px;
+        }
+
+        /* Кнопки */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-gen { background-color: #0969da; color: white; }
+        .btn-gen:hover { background-color: #0860ca; }
+        
+        .btn-del { background-color: #cf222e; color: white; }
+        .btn-del:hover { background-color: #a41c24; }
+
+        /* Вывод сгенерированной строки */
+        .output-string {
+            font-size: 1.8em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #24292f;
+            min-height: 40px;
+            word-break: break-all;
+        }
+
+        .btn-back { 
+            background-color: #f6f8fa; 
+            color: #24292f; 
+            border-color: #d0d7de; 
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .btn-back:hover { background-color: #f3f4f6; }
+
+        .error-text {
+            color: #cf222e;
+            font-size: 0.85em;
+            min-height: 18px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <h1>IT by Viktoriabel</h1>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="project5.html">Project 5</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h2>Project 5</h2>
+        <p>WOW/BOW Generator</p>
+    </div>
+
+    <div class="card">
+        
+        <!-- Визуальные картинки -->
+        <div class="visuals">
+            <!-- Левая картинка (Собака) -->
+            <div class="img-box">
+                <!-- Ссылка на собаку с Википедии (или можете заменить на свою локальную) -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/2023_Chihuahua.jpg/240px-2023_Chihuahua.jpg" alt="Dog" style="max-width: 100%; max-height: 100%; border-radius: 4px;">
+            </div>
+            
+            <!-- Правая картинка (Матрица букв) -->
+            <div class="img-box">
+                <div class="matrix-box">
+                    <div><span class="crossed">W</span> B</div>
+                    <div><span class="crossed">B</span> W</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Поля ввода вероятностей -->
+        <div class="settings-row">
+            <label>W <input type="number" id="probW" value="50" min="0" max="100" step="any">%</label>
+            <label>O <input type="number" id="probO" value="37.5" min="0" max="100" step="any">%</label>
+            <label>B <input type="number" id="probB" value="12.5" min="0" max="100" step="any">%</label>
+        </div>
+
+        <div class="error-text" id="errorMsg"></div>
+
+        <!-- Статистика -->
+        <div class="stats-box" id="statsBox">
+            So far: W 0% &middot; O 0% &middot; B 0%
+        </div>
+
+        <!-- Кнопки управления -->
+        <div class="btn-group">
+            <button class="btn btn-gen" onclick="generateString()">Generate</button>
+            <button class="btn btn-del" onclick="deleteStats()">Delete</button>
+        </div>
+
+        <!-- Строка с результатом -->
+        <div class="output-string" id="outputString"></div>
+
+    </div>
+
+    <a href="../index.html" class="btn btn-back">Back to Home</a>
+
+    <script>
+        let countW = 0;
+        let countO = 0;
+        let countB = 0;
+        let totalCount = 0;
+        let generatedHistory = []; // Храним историю сгенерированных букв
+
+        function generateString() {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = '';
+
+            // Получаем вероятности
+            const pW = parseFloat(document.getElementById('probW').value) || 0;
+            const pO = parseFloat(document.getElementById('probO').value) || 0;
+            const pB = parseFloat(document.getElementById('probB').value) || 0;
+
+            // Проверяем сумму
+            const sum = pW + pO + pB;
+            if (Math.abs(sum - 100) > 0.01) {
+                errorMsg.textContent = "Sum of probabilities must be 100%! (Currently: " + sum.toFixed(1) + "%)";
+                return;
+            }
+
+            // Генерируем 10 букв за одно нажатие (как в оригинале)
+            for (let i = 0; i < 10; i++) {
+                const rand = Math.random() * 100;
+                let generated = '';
+
+                if (rand < pW) {
+                    generated = 'W';
+                    countW++;
+                } else if (rand < pW + pO) {
+                    generated = 'O';
+                    countO++;
+                } else {
+                    generated = 'B';
+                    countB++;
+                }
+                
+                generatedHistory.push(generated);
+                totalCount++;
+            }
+
+            updateStats();
+            updateOutput();
+        }
+
+        function updateStats() {
+            const statsBox = document.getElementById('statsBox');
+            
+            if (totalCount === 0) {
+                statsBox.innerHTML = 'So far: W 0% &middot; O 0% &middot; B 0%';
+                return;
+            }
+
+            const percW = ((countW / totalCount) * 100).toFixed(1);
+            const percO = ((countO / totalCount) * 100).toFixed(1);
+            const percB = ((countB / totalCount) * 100).toFixed(1);
+
+            statsBox.innerHTML = `So far: W ${percW}% &middot; O ${percO}% &middot; B ${percB}%`;
+        }
+
+        function updateOutput() {
+            const outputEl = document.getElementById('outputString');
+            // Выводим историю без пробелов
+            outputEl.textContent = generatedHistory.join('');
+        }
+
+        function deleteStats() {
+            countW = 0;
+            countO = 0;
+            countB = 0;
+            totalCount = 0;
+            generatedHistory = [];
+            
+            document.getElementById('errorMsg').textContent = '';
+            document.getElementById('outputString').textContent = '';
+            updateStats();
+        }
+    </script>
+
+</body>
+</html>

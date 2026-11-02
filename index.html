@@ -1,11 +1,209 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Мой первый сайт</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT by Viktori Abakunchik</title>
+    <style>
+        /* Базовые стили (в точности как у вас на GitHub) */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f6f8fa;
+            color: #24292f;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            border-bottom: 1px solid #d0d7de;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* Сетка для карточек */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* Карточка */
+        .project-card {
+            background-color: #ffffff;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #0969da;
+        }
+
+        .project-card p {
+            margin: 0 0 20px 0;
+            color: #57606a;
+            font-size: 0.95em;
+            flex-grow: 1; /* Чтобы кнопка всегда была внизу */
+        }
+
+        /* Кнопка */
+        .btn {
+            display: inline-block;
+            padding: 6px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            color: #24292f;
+            background-color: #f6f8fa;
+            border: 1px solid rgba(27,31,36,0.15);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            text-align: center;
+            align-self: flex-start; /* Кнопка не на всю ширину */
+        }
+
+        .btn:hover {
+            background-color: #eaeef2;
+        }
+                /* --- Стили для шапки с фото --- */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #d0d7de; /* Линия под фото, как на GitHub */
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+                /* --- Стили для шапки с фото --- */
+               /* --- Стили для шапки с фото --- */
+        .profile-header {
+            display: flex;
+            flex-direction: column; /* Выстраиваем элементы в колонку (фото над текстом) */
+            align-items: center;    /* Центрируем всё по горизонтали */
+            gap: 20px;              /* Отступ между фото и текстом */
+            border-bottom: 1px solid #d0d7de; 
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 200px;  /* Увеличили размер круга */
+            height: 200px; 
+            border-radius: 50%; /* Идеальный круг */
+            object-fit: cover; 
+            border: 6px solid #ffffff; /* Толстая белая рамка */
+            box-shadow: 0 4px 12px rgba(27,31,36,0.2); /* Красивая объемная тень */
+            background-color: #eaeef2;
+        }
+
+        h1 {
+            font-size: 2.5em; 
+            margin: 0;
+        }
+                /* Стиль для имени преподавателя */
+        .tn {
+            font-size: 1.1em;
+            color: #57606a; /* Серый цвет, чтобы не перебивать главный заголовок */
+            margin: 0;
+            font-weight: 500;
+        }
+        /* Стили для кнопки Notes */
+        .btn-notes {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background-color: #0969da;
+            border: 1px solid rgba(27,31,36,0.15);
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            box-shadow: 0 1px 3px rgba(27,31,36,0.12);
+        }
+
+        .btn-notes:hover {
+            background-color: #0860ca;
+        }
+    </style>
 </head>
 <body>
-    <h1>Привет! Это мой сайт на GitHub Pages.</h1>
-    <p>Он работает!</p>
+
+    <div class="container">
+    
+            
+        <div class="profile-header">
+            <img src="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\me.jpg" alt="My Photo" class="profile-photo">
+            <h1>IT by Viktoria Abakunchik</h1>
+            <p class="tn">group 1451</p>
+              <p class="tn">Teacher: Andrey Olegovich Yaroshevich</p>
+        </div>
+       
+    
+        <div class="projects-grid">
+            <!-- Проект 1 -->
+            <div class="project-card">
+                <h2>Project 1</h2>
+                <p>ABBA Calculation</p>
+                <a href="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\project1.html" class="btn">Open</a>
+            </div>
+
+            <!-- Проект 2 -->
+            <div class="project-card">
+                <h2>Project 2</h2>
+                <p>Boolean logic</p>
+                <a href="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\project2.html" class="btn">Open</a>
+            </div>
+
+            <!-- Проект 3 -->
+            <div class="project-card">
+                <h2>Project 3</h2>
+                <p>Hamming Code</p>
+                <a href="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\project3.html" class="btn">Open</a>
+            </div>
+
+            <!-- Проект 4 -->
+            <div class="project-card">
+                <h2>Project 4</h2>
+                <p>LB(N) and Shannon</p>
+                <a href="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\project4.html" class="btn">Open</a>
+            </div>
+
+            <!-- Проект 5 -->
+            <div class="project-card">
+                <h2>Project 5</h2>
+                <p>WOW/BOW Generator</p>
+                <a href="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\project5.html" class="btn">Open</a>
+            </div>
+
+            <!-- Проект 6 -->
+            <div class="project-card">
+                <h2>Project 6</h2>
+                <p>Nash Equilibrium</p>
+                <a href="C:\Users\Виктория\OneDrive\Desktop\БГУ\Теория информации\project6.html" class="btn">Open</a>
+            </div>
+        </div>
+                    <!-- Кнопка Notes -->
+            <a href="notes.html" class="btn-notes">Notes</a>
+    </div>
+
 </body>
 </html>
