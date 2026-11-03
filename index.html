@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Базовые стили и анимированный фон --- */
+        /* --- Базовые стили и фон --- */
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #1e293b;
@@ -19,15 +19,14 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            /* Красивый градиентный фон, который переливается */
             background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             background-attachment: fixed;
         }
 
+        /* Главный контейнер (Стекло) */
         .container {
             max-width: 850px;
             width: 100%;
-            /* Эффект "стекла" для всего контейнера */
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -35,6 +34,9 @@
             border-radius: 24px;
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- Шапка профиля --- */
@@ -115,7 +117,7 @@
             color: white;
             background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             border: none;
-            border-radius: 50px; /* Овальная кнопка */
+            border-radius: 50px;
             text-decoration: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
@@ -131,6 +133,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 24px;
+            flex-grow: 1; /* Растягивает сетку, чтобы подвал был внизу */
         }
 
         /* --- Карточка проекта --- */
@@ -147,7 +150,6 @@
             overflow: hidden;
         }
 
-        /* Красивая полоска сверху карточки, которая появляется при наведении */
         .project-card::before {
             content: '';
             position: absolute;
@@ -165,7 +167,7 @@
         }
 
         .project-card:hover::before {
-            transform: scaleX(1); /* Полоска выезжает при наведении */
+            transform: scaleX(1);
         }
 
         .project-card h2 {
@@ -203,23 +205,18 @@
         .btn:hover {
             background-color: #4f46e5;
             color: #ffffff;
-            transform: translateX(4px); /* Кнопка немного сдвигается вправо */
+            transform: translateX(4px);
         }
+
         /* --- Стильный подвал (Footer) --- */
         .site-footer {
-            margin-top: 40px;
-            padding: 20px 30px;
+            margin-top: 50px; /* Отступ от карточек */
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05); /* Линия-разделитель */
             text-align: center;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 500;
-            color: #475569;
-            /* Эффект стекла, как у карточек */
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            color: #64748b;
             letter-spacing: 0.5px;
         }
     </style>
@@ -290,10 +287,12 @@
             </div>
         </div>
 
-    </div>
-<!-- Стильный подвал в общем дизайне -->
+        <!-- ПОДВАЛ ТЕПЕРЬ ВНУТРИ КОНТЕЙНЕРА -->
         <footer class="site-footer">
             © 2026 IT by Viktoria Abakunchik
         </footer>
+
+    </div>
+
 </body>
 </html>
