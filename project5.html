@@ -4,48 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project 5 — WOW/BOW Generator — IT by Viktoria Abakunchik</title>
+    <!-- Подключаем современные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- Базовые стили и фон --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
             margin: 0;
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
         }
 
+        /* --- Навигация сверху --- */
         .nav {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-sizing: border-box;
         }
-        .nav h1 { font-size: 1.2em; margin: 0; }
-        .nav-links a { margin-left: 15px; text-decoration: none; color: #0969da; }
-        .nav-links a:hover { text-decoration: underline; }
+        
+        .nav h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em; 
+            margin: 0; 
+            color: #0f172a;
+        }
+        
+        .nav-links a { 
+            margin-left: 20px; 
+            text-decoration: none; 
+            color: #4f46e5; 
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { 
+            color: #ec4899;
+            text-decoration: underline; 
+        }
 
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h2 { margin: 0 0 5px 0; font-size: 2em; }
-        .header p { margin: 0; color: #57606a; font-size: 0.9em; }
+        /* --- Заголовки --- */
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h2 { 
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 5px 0; 
+            font-size: 2.2em; 
+            color: #0f172a;
+        }
+        .header p { margin: 0; color: #64748b; font-size: 1em; }
 
+        /* --- Основное окно (Стеклянная карточка) --- */
         .card {
-            background: white;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 40px;
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             text-align: center;
-            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            margin-bottom: 20px;
         }
 
-        /* Визуальная часть (Только матрица) */
+        /* Визуальная часть (Матрица) */
         .visuals {
             display: flex;
             justify-content: center;
@@ -53,23 +97,26 @@
         }
 
         .img-box {
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 20px 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 20px 40px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        /* Стили для блока с буквами и красной линией */
+        /* Стили для блока с буквами */
         .matrix-box {
             position: relative;
-            font-size: 3.5em; /* Сделал буквы чуть больше, так как осталась одна картинка */
+            font-size: 4em;
             font-weight: 900;
+            font-family: 'Inter', sans-serif;
             line-height: 1.1;
             text-align: left;
-            padding-left: 10px;
+            padding-left: 15px;
+            color: #0f172a;
         }
         
         .matrix-box .crossed {
@@ -77,83 +124,138 @@
             display: inline-block;
         }
         
-        /* Рисуем красную линию поверх букв (зачеркивание) */
+        /* Красная линия зачеркивания */
         .matrix-box .crossed::after {
             content: "";
             position: absolute;
             left: -5px;
             top: 50%;
             width: 110%;
-            height: 3px; /* Сделал линию чуть толще */
-            background-color: red;
+            height: 4px;
+            background-color: #ef4444; /* Яркий красный */
             transform: rotate(-45deg);
             transform-origin: center;
+            border-radius: 2px;
         }
 
-        /* Настройки вероятностей */
+        /* --- Поля ввода вероятностей --- */
         .settings-row {
             display: flex;
             justify-content: center;
             gap: 15px;
-            font-size: 0.95em;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #475569;
         }
         
         .settings-row input {
-            width: 50px;
-            padding: 4px;
-            border: 1px solid #d0d7de;
-            border-radius: 4px;
-            text-align: right;
-            font-size: 0.9em;
+            width: 60px;
+            padding: 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95em;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #0f172a;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .settings-row input:focus {
+            border-color: #6366f1;
         }
 
         /* Статистика */
         .stats-box {
-            font-size: 0.9em;
-            color: #57606a;
-            margin-bottom: 20px;
+            font-size: 0.95em;
+            color: #64748b;
+            margin-bottom: 25px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block;
         }
 
-        /* Кнопки */
+        /* --- Кнопки --- */
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .btn {
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            border-radius: 6px;
+            padding: 10px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            border: 1px solid transparent;
+            border: none;
+            transition: all 0.2s;
         }
 
-        .btn-gen { background-color: #0969da; color: white; }
-        .btn-gen:hover { background-color: #0860ca; }
+        .btn-gen { 
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        .btn-gen:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
         
-        .btn-del { background-color: #cf222e; color: white; }
-        .btn-del:hover { background-color: #a41c24; }
+        .btn-del { 
+            background-color: #ffffff; 
+            color: #ef4444; 
+            border: 1px solid #fca5a5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-del:hover { 
+            background-color: #fef2f2; 
+            border-color: #ef4444;
+        }
 
         /* Вывод сгенерированной строки */
         .output-string {
-            font-size: 1.8em;
-            font-weight: 900;
-            letter-spacing: 3px;
-            color: #24292f;
-            min-height: 40px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: #ec4899; /* Розовый акцент */
+            min-height: 50px;
             word-break: break-all;
+            line-height: 1.2;
         }
 
         .error-text {
-            color: #cf222e;
-            font-size: 0.85em;
-            min-height: 18px;
-            margin-bottom: 5px;
+            color: #ef4444;
+            font-size: 0.9em;
+            font-weight: 600;
+            min-height: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Стильный подвал (Footer) --- */
+        .site-footer {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 20px;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #475569;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -173,7 +275,7 @@
 
     <div class="card">
         
-        <!-- Визуальная часть (Осталась только матрица) -->
+        <!-- Визуальная часть -->
         <div class="visuals">
             <div class="img-box">
                 <div class="matrix-box">
@@ -208,30 +310,32 @@
 
     </div>
 
+    <!-- Стильный подвал -->
+    <footer class="site-footer">
+        © 2026 IT by Viktoria Abakunchik
+    </footer>
+
     <script>
         let countW = 0;
         let countO = 0;
         let countB = 0;
         let totalCount = 0;
-        let generatedHistory = []; // Храним историю сгенерированных букв
+        let generatedHistory = []; 
 
         function generateString() {
             const errorMsg = document.getElementById('errorMsg');
             errorMsg.textContent = '';
 
-            // Получаем вероятности
             const pW = parseFloat(document.getElementById('probW').value) || 0;
             const pO = parseFloat(document.getElementById('probO').value) || 0;
             const pB = parseFloat(document.getElementById('probB').value) || 0;
 
-            // Проверяем сумму
             const sum = pW + pO + pB;
             if (Math.abs(sum - 100) > 0.01) {
                 errorMsg.textContent = "Sum of probabilities must be 100%! (Currently: " + sum.toFixed(1) + "%)";
                 return;
             }
 
-            // Генерируем 10 букв за одно нажатие
             for (let i = 0; i < 10; i++) {
                 const rand = Math.random() * 100;
                 let generated = '';
