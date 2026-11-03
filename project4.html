@@ -7,104 +7,190 @@
     <!-- Подключаем MathJax для красивых формул -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Подключаем современные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
     <style>
+        /* --- Базовые стили и фон --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
             margin: 0;
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
         }
 
+        /* --- Навигация сверху --- */
         .nav {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-sizing: border-box;
         }
-        .nav h1 { font-size: 1.2em; margin: 0; }
-        .nav-links a { margin-left: 15px; text-decoration: none; color: #0969da; }
-        .nav-links a:hover { text-decoration: underline; }
+        
+        .nav h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em; 
+            margin: 0; 
+            color: #0f172a;
+        }
+        
+        .nav-links a { 
+            margin-left: 20px; 
+            text-decoration: none; 
+            color: #4f46e5; 
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { 
+            color: #ec4899;
+            text-decoration: underline; 
+        }
 
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h2 { margin: 0 0 5px 0; font-size: 2em; }
-        .header p { margin: 0; color: #57606a; font-size: 0.9em; }
+        /* --- Заголовки --- */
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h2 { 
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 5px 0; 
+            font-size: 2.2em; 
+            color: #0f172a;
+        }
+        .header p { margin: 0; color: #64748b; font-size: 1em; }
 
-        /* Общие стили для карточек */
+        /* --- Общие стили для карточек (Стекло) --- */
         .card {
-            background: white;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 40px;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+            margin-bottom: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
         }
 
-        .card h3 { margin-top: 0; font-size: 1.3em; }
-        .formula-text { font-size: 1.2em; margin: 10px 0 20px 0; font-style: italic; }
-        .sub-text { font-size: 0.85em; color: #57606a; margin-bottom: 20px; }
+        .card h3 { 
+            font-family: 'Playfair Display', serif;
+            margin-top: 0; 
+            font-size: 1.8em; 
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+        
+        .formula-text { font-size: 1.2em; margin: 10px 0 20px 0; font-style: italic; color: #4f46e5; font-weight: 500;}
+        .sub-text { font-size: 0.95em; color: #64748b; margin-bottom: 25px; }
 
-        /* Стили для ввода */
+        /* --- Поля ввода и кнопки --- */
         .input-group {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 1.2em;
             font-weight: bold;
         }
-        .input-group input {
-            width: 80px;
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            text-align: center;
-        }
-        .btn-calc {
-            background-color: #0969da;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn-calc:hover { background-color: #0860ca; }
         
-        .result-display {
-            margin-top: 15px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #0969da;
-            min-height: 30px;
+        .input-group input, .prob-inputs input {
+            width: 80px;
+            padding: 12px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* Стили для Энтропии Шеннона */
+        .input-group input:focus, .prob-inputs input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        .btn-calc {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-calc:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+        
+        .result-display {
+            margin-top: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 600;
+            color: #ec4899; /* Розовый акцент */
+            min-height: 40px;
+        }
+
+        /* --- Стили для Энтропии Шеннона --- */
         .prob-inputs {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
         .prob-inputs input {
-            width: 50px;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
+            width: 70px;
+        }
+
+        /* --- Стильный подвал (Footer) --- */
+        .site-footer {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 10px;
+            padding: 20px 30px;
             text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #475569;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -142,7 +228,7 @@
         <h3>Shannon entropy</h3>
         
         <!-- Формула Шеннона через MathJax -->
-        <div style="font-size: 1.5em; margin: 20px 0;">
+        <div style="font-size: 1.5em; margin: 20px 0; color: #1e293b;">
             \[ S(x) = \sum_{i=1}^{n} p(i) \log_2 \frac{1}{p(i)} \]
         </div>
 
@@ -157,29 +243,30 @@
         <div class="result-display" id="shannonResult"></div>
 
         <!-- Визуальная часть (Картинка целиком) -->
-        <div style="margin-top: 30px;">
+        <div style="margin-top: 35px;">
             <div style="
                 width: 100%; 
-                border-radius: 6px; 
+                border-radius: 12px; 
                 overflow: hidden;
-                /* Красивый фон вокруг картинки */
                 background: linear-gradient(to right, #0d47a1, #2e7d32);
                 padding: 10px;
                 box-sizing: border-box;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             ">
-                <!-- Убрали жесткую высоту и object-fit: cover. Теперь картинка видна полностью -->
                 <img src="shannon.png" style="
                     width: 100%; 
                     height: auto; 
                     display: block; 
-                    border-radius: 4px;
+                    border-radius: 8px;
                 ">
             </div>
         </div>
     </div>
 
-    <!-- Кнопка возврата -->
-    <a href="index.html" class="btn-calc" style="background-color: #f6f8fa; color: #24292f; border: 1px solid #d0d7de; text-decoration: none; margin-top: 10px; display: inline-block; padding: 10px 20px;">Back to Home</a>
+    <!-- Стильный подвал -->
+    <footer class="site-footer">
+        © 2026 IT by Viktoria Abakunchik
+    </footer>
 
     <script>
         // --- Логика для бинарного алгоритма (LB) ---
