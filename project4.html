@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 4 — LB(N) and Shannon — IT by Viktoriabel</title>
+    <title>Project 4 — LB(N) and Shannon — IT by Viktoria Abakunchik</title>
     <!-- Подключаем MathJax для красивых формул -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -106,50 +106,14 @@
             border-radius: 6px;
             text-align: center;
         }
-
-        /* Фото-сетка (Знаменитости) */
-        .images-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 30px;
-            border-top: 1px solid #d0d7de;
-            padding-top: 20px;
-        }
-        .person {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.8em;
-        }
-        .person img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 5px;
-            background-color: #eaeef2; /* Заглушка, если картинка не загрузится */
-        }
-        .person span { font-weight: bold; margin-bottom: 2px; text-align: center; }
-        .person .percent { color: #57606a; }
-
-        /* Главное фото */
-        .main-image {
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto 20px auto;
-            display: block;
-            border-radius: 6px;
-        }
     </style>
 </head>
 <body>
 
     <div class="nav">
-        <h1>IT by Viktoriabel</h1>
+        <h1>IT by Viktoria Abakunchik</h1>
         <div class="nav-links">
-            <a href="../index.html">Home</a>
-            <a href="project4.html">Project 4</a>
+            <a href="index.html">Home</a>
         </div>
     </div>
 
@@ -189,24 +153,23 @@
             <input type="number" class="prob-input" value="12.5" min="0" max="100" step="any">
         </div>
         
-        <button class="btn-calc" onclick="calculateShannon()">50 %</button>
+        <button class="btn-calc" onclick="calculateShannon()">Calculate</button>
         <div class="result-display" id="shannonResult"></div>
 
-        <!-- Визуальная часть (Мем с Цукербергом и формулой) -->
+        <!-- Визуальная часть (Одна картинка с наложенным текстом) -->
         <div style="margin-top: 30px;">
-                        <!-- Ваша фотография с наложенным текстом -->
             <div style="
                 position: relative; 
                 width: 100%; 
-                height: 250px; 
+                height: 350px; /* Жестко задаем высоту блока */
                 border-radius: 6px; 
                 overflow: hidden;
-                background-color: #0d47a1; /* Цвет фона, если фото не загрузится */
+                background-color: #0d47a1;
             ">
-                <!-- Сама картинка (замените my-photo.jpg на имя вашего файла) -->
+                <!-- object-fit: cover заставит картинку заполнить блок без искажений -->
                 <img src="shannon.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                 
-                <!-- Затемнение, чтобы текст было лучше видно -->
+                <!-- Затемнение для читаемости текста -->
                 <div style="
                     position: absolute; 
                     top: 0; left: 0; width: 100%; height: 100%; 
@@ -217,23 +180,19 @@
                 <div style="
                     position: absolute; 
                     top: 0; left: 0; width: 100%; height: 100%; 
-                    display: flex; justify-content: space-between; align-items: center; 
-                    padding: 0 20px; box-sizing: border-box; color: white;
+                    display: flex; justify-content: center; align-items: center; 
+                    box-sizing: border-box; color: white;
                 ">
-                
-                    
-                    <div style="font-size: 1.8em; font-weight: bold; text-align: right; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);">
+                    <div style="font-size: 1.8em; font-weight: bold; text-align: center; line-height: 1.2; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">
                         PROJECT 4<br>Shannon Entropy
-                        <img src="shannon.png">
                     </div>
                 </div>
             </div>
-
-            
         </div>
     </div>
 
-    <a href="index.html" class="btn-calc" style="background-color: #f6f8fa; color: #24292f; border: 1px solid #d0d7de; text-decoration: none; margin-top: 10px;">Back to Home</a>
+    <!-- Кнопка возврата -->
+    <a href="index.html" class="btn-calc" style="background-color: #f6f8fa; color: #24292f; border: 1px solid #d0d7de; text-decoration: none; margin-top: 10px; display: inline-block; padding: 10px 20px;">Back to Home</a>
 
     <script>
         // --- Логика для бинарного алгоритма (LB) ---
@@ -246,9 +205,7 @@
                 return;
             }
 
-            // Вычисляем логарифм по основанию 2
             const lb = Math.log2(n);
-            // Округляем до 3 знаков после запятой для красоты
             resultEl.textContent = lb.toFixed(3);
         }
 
@@ -260,33 +217,27 @@
             let probabilities = [];
             let sum = 0;
 
-            // Собираем значения и переводим проценты в доли (например, 50 -> 0.5)
             inputs.forEach(input => {
                 let val = parseFloat(input.value);
                 if (isNaN(val) || val < 0) val = 0;
-                // Если ввели больше 100, ставим 100
                 if (val > 100) val = 100; 
                 
                 probabilities.push(val / 100);
                 sum += (val / 100);
             });
 
-            // Если сумма вероятностей не равна 1 (100%), энтропия не считается
             if (Math.abs(sum - 1) > 0.01) {
-                resultEl.textContent = "Sum of probabilities must be 100%";
+                resultEl.textContent = "Sum must be 100%";
                 return;
             }
 
             let entropy = 0;
-
-            // Формула Шеннона: S = - Σ (p * log2(p))
             probabilities.forEach(p => {
                 if (p > 0) {
                     entropy -= p * Math.log2(p);
                 }
             });
 
-            // Округляем результат
             resultEl.textContent = entropy.toFixed(3) + " bits";
         }
     </script>
