@@ -3,48 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 3 — Hamming Code — IT by Viktoriabel</title>
+    <title>Project 3 — Hamming Code — IT by Viktoria Abakunchik</title>
+    <!-- Подключаем современные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- Базовые стили и фон --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #ffffff;
-            color: #24292f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
             margin: 0;
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
         }
 
-        /* Навигация */
+        /* --- Навигация сверху --- */
         .nav {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-sizing: border-box;
         }
-        .nav h1 { font-size: 1.2em; margin: 0; }
-        .nav-links a { margin-left: 15px; text-decoration: none; color: #0969da; }
-        .nav-links a:hover { text-decoration: underline; }
+        
+        .nav h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em; 
+            margin: 0; 
+            color: #0f172a;
+        }
+        
+        .nav-links a { 
+            margin-left: 20px; 
+            text-decoration: none; 
+            color: #4f46e5; 
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { 
+            color: #ec4899;
+            text-decoration: underline; 
+        }
 
-        /* Заголовки */
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h2 { margin: 0 0 5px 0; font-size: 2em; }
-        .header p { margin: 0; color: #57606a; font-size: 0.9em; }
+        /* --- Заголовки --- */
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h2 { 
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 5px 0; 
+            font-size: 2.2em; 
+            color: #0f172a;
+        }
+        .header p { margin: 0; color: #64748b; font-size: 1em; }
 
-        /* Контейнер для диаграммы */
+        /* --- Основное окно (Стеклянная карточка) --- */
+        .diagram-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        /* --- Контейнер для диаграммы --- */
         .diagram-container {
             position: relative;
             width: 500px;
             height: 450px;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            background-color: #ffffff; /* Белый фон, чтобы круги не смешивались с фоном */
             margin-bottom: 20px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
         }
 
         /* Круги Венна */
@@ -68,36 +122,36 @@
             text-align: center;
             font-size: 18px;
             font-weight: bold;
-            border: 1px solid #d0d7de;
-            border-radius: 4px;
+            font-family: 'Inter', monospace;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
             background: white;
             z-index: 10;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.2s;
         }
 
         .bit-input:focus {
             outline: none;
-            border-color: #0969da;
-            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.2);
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
         /* Позиции полей ввода */
-        .pos-top { left: 232px; top: 70px; }      /* Бит 1 (s1) */
-        .pos-left { left: 90px; top: 250px; }     /* Бит 2 (s2) */
-        .pos-right { left: 374px; top: 250px; }   /* Бит 3 (s3) */
-        .pos-center { left: 232px; top: 200px; }  /* Бит 4 */
-        
-        .pos-c1 { left: 160px; top: 180px; }      /* Бит 5 (s1+s2) */
-        .pos-c2 { left: 304px; top: 180px; }      /* Бит 6 (s1+s3) */
-        .pos-c3 { left: 232px; top: 290px; }      /* Бит 7 (s2+s3) */
+        .pos-top { left: 232px; top: 70px; }      
+        .pos-left { left: 90px; top: 250px; }     
+        .pos-right { left: 374px; top: 250px; }   
+        .pos-center { left: 232px; top: 200px; }  
+        .pos-c1 { left: 160px; top: 180px; }      
+        .pos-c2 { left: 304px; top: 180px; }      
+        .pos-c3 { left: 232px; top: 290px; }      
 
-        /* Кнопки и текст ошибки */
+        /* --- Кнопки и текст --- */
         .controls {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 15px;
         }
 
         .btn-group {
@@ -106,42 +160,69 @@
         }
 
         .btn {
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: 500;
-            border-radius: 6px;
+            padding: 10px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            border: 1px solid transparent;
+            border: none;
+            transition: all 0.2s;
         }
 
-        .btn-test { background-color: #0969da; color: white; }
-        .btn-test:hover { background-color: #0860ca; }
+        .btn-test { 
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+        .btn-test:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
         
-        .btn-clear { background-color: #6e7781; color: white; }
-        .btn-clear:hover { background-color: #5c636a; }
-
-        .btn-back { 
-            background-color: #f6f8fa; 
-            color: #24292f; 
-            border-color: #d0d7de; 
-            text-decoration: none;
-            display: inline-block;
+        .btn-clear { 
+            background-color: #ffffff; 
+            color: #64748b; 
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .btn-back:hover { background-color: #f3f4f6; }
+        .btn-clear:hover { 
+            background-color: #f8fafc; 
+            color: #0f172a;
+        }
 
         /* Текст ошибки */
         .error-text {
-            color: #cf222e; /* Красный цвет */
-            font-weight: bold;
-            font-size: 16px;
-            height: 20px; /* Чтобы блок не прыгал */
-            margin-top: 5px;
+            font-weight: 600;
+            font-size: 1.1em;
+            min-height: 25px;
+            text-align: center;
         }
 
         /* Подсветка полей с ошибкой */
         .error-highlight {
-            border: 2px solid #cf222e !important;
-            background-color: #ffebe9 !important;
+            border: 2px solid #ef4444 !important;
+            background-color: #fef2f2 !important;
+            color: #ef4444;
+        }
+
+        /* --- Стильный подвал (Footer) --- */
+        .site-footer {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 20px;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #475569;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -151,7 +232,6 @@
         <h1>IT by Viktoria Abakunchik</h1>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="project3.html">Project 3</a>
         </div>
     </div>
 
@@ -160,31 +240,37 @@
         <p>Hamming Code</p>
     </div>
 
-    <div class="diagram-container" id="diagram">
-        <div class="circle circle-red"></div>
-        <div class="circle circle-blue"></div>
-        <div class="circle circle-green"></div>
+    <!-- Стеклянная карточка -->
+    <div class="diagram-wrapper">
+        <div class="diagram-container" id="diagram">
+            <div class="circle circle-red"></div>
+            <div class="circle circle-blue"></div>
+            <div class="circle circle-green"></div>
 
-        <!-- Порядок важен для скрипта, индексы 0-6 -->
-        <input type="text" class="bit-input pos-top" maxlength="1" oninput="filterInput(this)">
-        <input type="text" class="bit-input pos-left" maxlength="1" oninput="filterInput(this)">
-        <input type="text" class="bit-input pos-right" maxlength="1" oninput="filterInput(this)">
-        <input type="text" class="bit-input pos-center" maxlength="1" oninput="filterInput(this)">
-        <input type="text" class="bit-input pos-c1" maxlength="1" oninput="filterInput(this)">
-        <input type="text" class="bit-input pos-c2" maxlength="1" oninput="filterInput(this)">
-        <input type="text" class="bit-input pos-c3" maxlength="1" oninput="filterInput(this)">
-    </div>
-
-    <div class="controls">
-        <div class="btn-group">
-            <button class="btn btn-test" onclick="testHamming()">Test</button>
-            <button class="btn btn-clear" onclick="clearAll()">Clear</button>
+            <!-- Порядок важен для скрипта, индексы 0-6 -->
+            <input type="text" class="bit-input pos-top" maxlength="1" oninput="filterInput(this)">
+            <input type="text" class="bit-input pos-left" maxlength="1" oninput="filterInput(this)">
+            <input type="text" class="bit-input pos-right" maxlength="1" oninput="filterInput(this)">
+            <input type="text" class="bit-input pos-center" maxlength="1" oninput="filterInput(this)">
+            <input type="text" class="bit-input pos-c1" maxlength="1" oninput="filterInput(this)">
+            <input type="text" class="bit-input pos-c2" maxlength="1" oninput="filterInput(this)">
+            <input type="text" class="bit-input pos-c3" maxlength="1" oninput="filterInput(this)">
         </div>
-        <!-- Блок для вывода текста ошибки -->
-        <div class="error-text" id="errorMessage"></div>
+
+        <div class="controls">
+            <div class="btn-group">
+                <button class="btn btn-test" onclick="testHamming()">Test</button>
+                <button class="btn btn-clear" onclick="clearAll()">Clear</button>
+            </div>
+            <!-- Блок для вывода текста ошибки -->
+            <div class="error-text" id="errorMessage"></div>
+        </div>
     </div>
 
-    <a href="../index.html" class="btn btn-back">Back to Home</a>
+    <!-- Стильный подвал -->
+    <footer class="site-footer">
+        © 2026 IT by Viktoria Abakunchik
+    </footer>
 
     <script>
         // Фильтр ввода (только 0 и 1)
@@ -217,21 +303,14 @@
             let bits = Array.from(inputs).map(input => input.value === '1' ? 1 : 0);
 
             // Вычисляем четность для трех кругов
-            // s1 (Верхний круг): биты 1, 5, 6, 4 (индексы 0, 4, 5, 3)
             let s1 = (bits[0] + bits[4] + bits[5] + bits[3]) % 2;
-            
-            // s2 (Левый круг): биты 2, 5, 7, 4 (индексы 1, 4, 6, 3)
             let s2 = (bits[1] + bits[4] + bits[6] + bits[3]) % 2;
-            
-            // s3 (Правый круг): биты 3, 6, 7, 4 (индексы 2, 5, 6, 3)
             let s3 = (bits[2] + bits[5] + bits[6] + bits[3]) % 2;
 
             let errors = [];
 
-            // Если остаток от деления на 2 не равен 0, значит ошибка (нечетное число единиц)
             if (s1 !== 0) {
                 errors.push("s1");
-                // Подсвечиваем биты, входящие в s1
                 inputs[0].classList.add('error-highlight');
                 inputs[4].classList.add('error-highlight');
                 inputs[5].classList.add('error-highlight');
@@ -239,7 +318,6 @@
             }
             if (s2 !== 0) {
                 errors.push("s2");
-                // Подсвечиваем биты, входящие в s2
                 inputs[1].classList.add('error-highlight');
                 inputs[4].classList.add('error-highlight');
                 inputs[6].classList.add('error-highlight');
@@ -247,7 +325,6 @@
             }
             if (s3 !== 0) {
                 errors.push("s3");
-                // Подсвечиваем биты, входящие в s3
                 inputs[2].classList.add('error-highlight');
                 inputs[5].classList.add('error-highlight');
                 inputs[6].classList.add('error-highlight');
@@ -256,11 +333,10 @@
 
             // Формируем текст сообщения
             if (errors.length === 0) {
-                errorMsg.style.color = "#2da44e"; // Зеленый для успеха
+                errorMsg.style.color = "#10b981"; // Зеленый для успеха
                 errorMsg.textContent = "No errors";
             } else {
-                errorMsg.style.color = "#cf222e"; // Красный для ошибки
-                // Склеиваем массив ошибок через запятую или "and"
+                errorMsg.style.color = "#ef4444"; // Красный для ошибки
                 errorMsg.textContent = "Error in " + errors.join(", ");
             }
         }
