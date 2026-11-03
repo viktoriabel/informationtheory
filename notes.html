@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes — IT by Viktoria Abakunchik</title>
+    <!-- Подключаем современные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Базовые стили и фон --- */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
+        }
+
+        /* --- Навигация сверху --- */
+        .nav {
+            width: 100%;
+            max-width: 850px; /* Чуть шире для PDF */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-sizing: border-box;
+        }
+        
+        .nav h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em; 
+            margin: 0; 
+            color: #0f172a;
+        }
+        
+        .nav-links a { 
+            margin-left: 20px; 
+            text-decoration: none; 
+            color: #4f46e5; 
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { 
+            color: #ec4899;
+            text-decoration: underline; 
+        }
+
+        /* --- Заголовки --- */
+        .header { text-align: center; margin-bottom: 25px; }
+        .header h2 { 
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 5px 0; 
+            font-size: 2.2em; 
+            color: #0f172a;
+        }
+        .header p { margin: 0; color: #64748b; font-size: 1em; }
+
+        /* --- Карточка с PDF --- */
+        .pdf-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 20px;
+            width: 100%;
+            max-width: 850px; /* Ширина под размер листа А4 */
+            height: 80vh; /* Высота 80% от экрана, чтобы было удобно читать */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- Сам PDF --- */
+        .pdf-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            background-color: #ffffff; /* Белый фон внутри рамки */
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        /* --- Стильный подвал (Footer) --- */
+        .site-footer {
+            width: 100%;
+            max-width: 850px;
+            margin-top: 10px;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #475569;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
+        }
+
+        /* Адаптивность для телефонов */
+        @media (max-width: 768px) {
+            .pdf-card { height: 65vh; padding: 10px; }
+            .nav { flex-direction: column; gap: 10px; }
+            .nav-links a { margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <h1>IT by Viktoria Abakunchik</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h2>Notes</h2>
+        <p>Information Theory Lectures</p>
+    </div>
+
+    <!-- Карточка с встроенным PDF -->
+    <div class="pdf-card">
+        <iframe src="notes.pdf" class="pdf-frame" title="PDF Notes"></iframe>
+    </div>
+
+    <!-- Стильный подвал -->
+    <footer class="site-footer">
+        © 2026 IT by Viktoria Abakunchik
+    </footer>
+
+</body>
+</html>
