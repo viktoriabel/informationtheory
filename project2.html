@@ -3,111 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 2 — Boolean logic — IT by Viktoriabel</title>
+    <title>Project 2 — Boolean logic — IT by Viktoria Abakunchik</title>
+    <!-- Подключаем современные шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- Базовые стили и фон --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
             margin: 0;
             padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
         }
 
-        /* Навигация */
+        /* --- Навигация сверху --- */
         .nav {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-sizing: border-box;
         }
-        .nav h1 { font-size: 1.2em; margin: 0; }
-        .nav-links a { margin-left: 15px; text-decoration: none; color: #0969da; }
-        .nav-links a:hover { text-decoration: underline; }
+        
+        .nav h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em; 
+            margin: 0; 
+            color: #0f172a;
+        }
+        
+        .nav-links a { 
+            margin-left: 20px; 
+            text-decoration: none; 
+            color: #4f46e5; 
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { 
+            color: #ec4899;
+            text-decoration: underline; 
+        }
 
-        /* Основное окно */
+        /* --- Основное окно --- */
         .calculator-box {
-            background: white;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 40px;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             text-align: center;
-            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            margin-bottom: 20px;
         }
 
-        h2 { margin-top: 0; }
-        p.subtitle { color: #57606a; margin-bottom: 25px; }
+        h2 { 
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #0f172a;
+            margin-top: 0; 
+            margin-bottom: 10px;
+        }
+        
+        p.subtitle { 
+            color: #64748b; 
+            font-size: 1.05em;
+            margin-bottom: 30px; 
+        }
 
-        /* Контейнер для 7 квадратиков */
+        /* --- Контейнер для 7 квадратиков --- */
         .bits-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
         }
 
-        /* Стили для каждого квадратика ввода */
+        /* --- Поля ввода битов --- */
         .bit-input {
-            width: 45px;
-            height: 55px;
-            font-size: 24px;
-            font-family: monospace;
+            width: 50px;
+            height: 60px;
+            font-size: 26px;
+            font-family: 'Inter', monospace;
+            font-weight: 600;
             text-align: center;
-            border: 2px solid #d0d7de;
-            border-radius: 6px;
-            background-color: #f6f8fa;
-            transition: all 0.2s ease;
-        }
-
-        /* Подсветка при фокусе (когда на него нажали) */
-        .bit-input:focus {
-            outline: none;
-            border-color: #0969da;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+            color: #0f172a;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* Блок с результатом */
+        /* Подсветка при фокусе */
+        .bit-input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* --- Блок с результатом --- */
         .result-box {
-            padding: 20px;
-            background-color: #f6f8fa;
-            border-radius: 6px;
-            border: 1px solid #d0d7de;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
         }
 
         .result-label {
-            font-size: 1em;
-            color: #57606a;
-            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
 
         .result-value {
-            font-size: 3em;
-            font-weight: bold;
-            color: #0969da;
-            font-family: monospace;
-            min-height: 50px;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 600;
+            color: #ec4899; /* Розовый акцент, как на главной */
+            min-height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
+            line-height: 1;
+        }
+
+        /* --- Стильный подвал (Footer) --- */
+        .site-footer {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 20px;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #475569;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
 
     <div class="nav">
-        <h1>IT by Viktoriabel</h1>
+        <h1>IT by Viktoria Abakunchik</h1>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="project2.html">Project 2</a>
         </div>
     </div>
 
@@ -131,6 +206,11 @@
             <div class="result-value" id="parityResult">-</div>
         </div>
     </div>
+
+    <!-- Стильный подвал -->
+    <footer class="site-footer">
+        © 2026 IT by Viktoria Abakunchik
+    </footer>
 
     <script>
         // При загрузке страницы ставим курсор в первое окошко
