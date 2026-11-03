@@ -3,145 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT by Viktori Abakunchik</title>
+    <title>IT by Viktoria Abakunchik</title>
+    <!-- Подключаем современный шрифт Inter и Playfair Display для заголовков -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
     <style>
-        /* Базовые стили (в точности как у вас на GitHub) */
+        /* --- Базовые стили и анимированный фон --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f6f8fa;
-            color: #24292f;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
             margin: 0;
             padding: 40px 20px;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
+            /* Красивый градиентный фон, который переливается */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-attachment: fixed;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
+            /* Эффект "стекла" для всего контейнера */
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
         }
 
-        h1 {
-            font-size: 2em;
-            border-bottom: 1px solid #d0d7de;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-
-        /* Сетка для карточек */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        /* Карточка */
-        .project-card {
-            background-color: #ffffff;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(27,31,36,0.04);
+        /* --- Шапка профиля --- */
+        .profile-header {
             display: flex;
             flex-direction: column;
-        }
-
-        .project-card h2 {
-            font-size: 1.2em;
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: #0969da;
-        }
-
-        .project-card p {
-            margin: 0 0 20px 0;
-            color: #57606a;
-            font-size: 0.95em;
-            flex-grow: 1; /* Чтобы кнопка всегда была внизу */
-        }
-
-        /* Кнопка */
-        .btn {
-            display: inline-block;
-            padding: 6px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 20px;
-            color: #24292f;
-            background-color: #f6f8fa;
-            border: 1px solid rgba(27,31,36,0.15);
-            border-radius: 6px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            text-align: center;
-            align-self: flex-start; /* Кнопка не на всю ширину */
-        }
-
-        .btn:hover {
-            background-color: #eaeef2;
-        }
-                /* --- Стили для шапки с фото --- */
-        .profile-header {
-            display: flex;
             align-items: center;
-            gap: 20px;
-            border-bottom: 1px solid #d0d7de; /* Линия под фото, как на GitHub */
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            gap: 10px;
+            padding-bottom: 30px;
+            margin-bottom: 35px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
         }
 
-                /* --- Стили для шапки с фото --- */
-               /* --- Стили для шапки с фото --- */
-        .profile-header {
-            display: flex;
-            flex-direction: column; /* Выстраиваем элементы в колонку (фото над текстом) */
-            align-items: center;    /* Центрируем всё по горизонтали */
-            gap: 20px;              /* Отступ между фото и текстом */
-            border-bottom: 1px solid #d0d7de; 
-            padding-bottom: 30px;
-            margin-bottom: 30px;
-            text-align: center;
+        .profile-photo-wrapper {
+            position: relative;
+            margin-bottom: 15px;
         }
 
         .profile-photo {
-            width: 200px;  /* Увеличили размер круга */
-            height: 200px; 
-            border-radius: 50%; /* Идеальный круг */
+            width: 170px; 
+            height: 170px; 
+            border-radius: 50%;
             object-fit: cover; 
-            border: 6px solid #ffffff; /* Толстая белая рамка */
-            box-shadow: 0 4px 12px rgba(27,31,36,0.2); /* Красивая объемная тень */
-            background-color: #eaeef2;
+            border: 4px solid #ffffff; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
+            background-color: #e5e7eb;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Декоративное свечение вокруг фото */
+        .profile-photo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            background: linear-gradient(45deg, #6366f1, #ec4899, #8b5cf6);
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(10px);
+            opacity: 0.6;
         }
 
         h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 2.5em; 
             margin: 0;
+            color: #0f172a;
+            letter-spacing: -0.5px;
         }
-                /* Стиль для имени преподавателя */
+
         .tn {
-            font-size: 1.1em;
-            color: #57606a; /* Серый цвет, чтобы не перебивать главный заголовок */
+            font-size: 0.95em;
+            color: #475569;
             margin: 0;
             font-weight: 500;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
         }
-        /* Стили для кнопки Notes */
+
+        .tn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        /* --- Кнопка Notes --- */
         .btn-notes {
             display: inline-block;
-            margin-top: 10px;
-            padding: 10px 24px;
+            margin-top: 20px;
+            padding: 12px 35px;
             font-size: 16px;
             font-weight: 600;
             color: white;
-            background-color: #0969da;
-            border: 1px solid rgba(27,31,36,0.15);
-            border-radius: 6px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            border: none;
+            border-radius: 50px; /* Овальная кнопка */
             text-decoration: none;
-            transition: background-color 0.2s;
-            box-shadow: 0 1px 3px rgba(27,31,36,0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
         }
 
         .btn-notes:hover {
-            background-color: #0860ca;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        /* --- Сетка проектов --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        /* --- Карточка проекта --- */
+        .project-card {
+            background-color: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Красивая полоска сверху карточки, которая появляется при наведении */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            border-color: #e2e8f0;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1); /* Полоска выезжает при наведении */
+        }
+
+        .project-card h2 {
+            font-size: 1.3em;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            margin: 0 0 24px 0;
+            color: #64748b;
+            font-size: 0.95em;
+            flex-grow: 1; 
+            line-height: 1.6;
+        }
+
+        /* --- Кнопка Open --- */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4f46e5;
+            background-color: #eef2ff;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+            text-align: center;
+            align-self: flex-start; 
+        }
+
+        .btn:hover {
+            background-color: #4f46e5;
+            color: #ffffff;
+            transform: translateX(4px); /* Кнопка немного сдвигается вправо */
         }
     </style>
 </head>
@@ -149,15 +211,24 @@
 
     <div class="container">
     
-            
+        <!-- Шапка с фото, именем и кнопкой Notes -->
         <div class="profile-header">
-            <img src="me.jpg" alt="My Photo" class="profile-photo">
+            <div class="profile-photo-wrapper">
+                <img src="me.jpg" alt="My Photo" class="profile-photo">
+            </div>
+            
             <h1>IT by Viktoria Abakunchik</h1>
-            <p class="tn">group 1451</p>
-              <p class="tn">Teacher: Andrey Olegovich Yaroshevich</p>
+            
+            <div class="tn-group">
+                <p class="tn">Group 1451</p>
+                <p class="tn">Teacher: Andrey O. Yaroshevich</p>
+            </div>
+            
+            <!-- Кнопка Notes -->
+            <a href="notes.html" class="btn-notes">Notes</a>
         </div>
        
-    
+        <!-- Сетка проектов -->
         <div class="projects-grid">
             <!-- Проект 1 -->
             <div class="project-card">
@@ -201,8 +272,7 @@
                 <a href="project6.html" class="btn">Open</a>
             </div>
         </div>
-                    <!-- Кнопка Notes -->
-            <a href="notes.html" class="btn-notes">Notes</a>
+
     </div>
 
 </body>
